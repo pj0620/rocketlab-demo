@@ -2,9 +2,12 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./build",
-    "strict": true
+    "strict": true,
+    "target": "es6", // or a more recent ecmascript version
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": false
   }
 }

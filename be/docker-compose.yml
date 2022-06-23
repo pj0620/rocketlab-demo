@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  rocketdb:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: rocketdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
