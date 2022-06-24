@@ -62,8 +62,19 @@ docker-compose up -d
 cd be
 npm i
 npm run build
+npm run init-db
+npm run seed
 npm run start
 ```
 
 ### Database
-This project utilizes two tables RocketNode/RocketProperty. RocketNode stores each node in the rocket data (Ex: /Rocket/Stage1) as well asthe name of each node (Ex: Stage1).
+This project utilizes two tables RocketNode/RocketProperty. RocketNode stores each node in the rocket data with a `path`(Ex: /Rocket/Stage1) as well as a `name` of each node(Ex: Stage1). The RocketProperty table stores node properties with a `key` (Ex: Mass) and `value` (Ex: 3000). The value of a RocketProperty must be a number. There is a hasMany relationship from RocketNode to RocketProperty with RocketProperty having the foriegn key  `nodeId`. 
+
+#### GET /child-1/child-2/.../child-n
+I decided to usethis pattern since I can easily reconstruct the tree from a given path using the following steps.
+- Get all nodes under given paths using `like: ${path}+'%'` to match all nodes with paths starting with the desired path.
+- Sort resulting nodes by thestring length of thier paths descending. Thus the nodes are sorted by depth.
+- create a new empty response object `res = {}`
+- Since nodes are sorted by depth, build the response object by utilizing lodash's `_.set(res, node[i].path, node[i].name)` method for each node. Then create the properties for the current node by going through the properties of the node and following the same process `_.set(res, node[i].properties[j].path, node[i].properties[j].name)`
+- return the constructed object as json
+
