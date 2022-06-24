@@ -70,11 +70,66 @@ npm run start
 ### Database
 This project utilizes two tables RocketNode/RocketProperty. RocketNode stores each node in the rocket data with a `path`(Ex: /Rocket/Stage1) as well as a `name` of each node(Ex: Stage1). The RocketProperty table stores node properties with a `key` (Ex: Mass) and `value` (Ex: 3000). The value of a RocketProperty must be a number. There is a hasMany relationship from RocketNode to RocketProperty with RocketProperty having the foriegn key  `nodeId`. 
 
-#### GET /child-1/child-2/.../child-n
-I decided to usethis pattern since I can easily reconstruct the tree from a given path using the following steps.
+#### Get Rocket Info
+
+To Reconstruct the tree from a given path using the following steps.
 - Get all nodes under given paths using `like: ${path}+'%'` to match all nodes with paths starting with the desired path.
 - Sort resulting nodes by thestring length of thier paths descending. Thus the nodes are sorted by depth.
 - create a new empty response object `res = {}`
 - Since nodes are sorted by depth, build the response object by utilizing lodash's `_.set(res, node[i].path, node[i].name)` method for each node. Then create the properties for the current node by going through the properties of the node and following the same process `_.set(res, node[i].properties[j].path, node[i].properties[j].name)`
 - return the constructed object as json
+
+##### Request
+
+`GET /child-1/child-2/.../child-n`
+
+##### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+```json
+{
+  "Engine3": {
+    "Thrust": 9.899,
+    "ISP": 12.551
+  }
+}
+```
+
+#### Create Rocket Node
+
+Inserting into the tree is very simple. The request url is used to create a new RocketNode, and the request body is used to create rocket properties/new rocket nodes depending on if thier value is a number or a object.  
+
+##### Request
+
+`POST /child-1/child-2/.../child-n`
+
+    {
+      "Engine": {
+        "Mass": 1000
+      },
+      "Height": 34
+    }
+
+##### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    {
+      "Engine": {
+        "Mass": 1000
+      },
+      "Height": 34,
+      "Height": 45
+    }
 
