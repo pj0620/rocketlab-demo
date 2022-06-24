@@ -24,6 +24,30 @@
   color: white;
 }
 
+.square-font {
+  font-family: "Nulshock Light";
+}
+
+.rocket-form {
+  margin-top: 4rem;
+}
+
+.rocket-tree {
+  margin-top: 2rem;
+}
+
+.rocket-form button {
+  color: white;
+  border-color: white;
+}
+
+.white-border-round {
+  border-width: 1px !important;
+  border-style: solid;
+  border-radius: 0.3rem;
+  border-color: white;
+}
+
 .App-link {
   color: #61dafb;
 }

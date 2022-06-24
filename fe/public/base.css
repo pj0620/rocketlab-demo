@@ -1,0 +1,11 @@
+body {
+  font-family: "Colfax",sans-serif !important;
+  font-size: 18px;
+  line-height: 1.7;
+  background: black;
+}
+
+@font-face {
+  font-family: 'Nulshock Light';
+  src: local('Nulshock Light'), url(fonts/NulshockLt.woff) format('woff');
+}
