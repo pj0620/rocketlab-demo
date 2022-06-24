@@ -70,6 +70,13 @@ npm run start
 ### Database
 This project utilizes two tables RocketNode/RocketProperty. RocketNode stores each node in the rocket data with a `path`(Ex: /Rocket/Stage1) as well as a `name` of each node(Ex: Stage1). The RocketProperty table stores node properties with a `key` (Ex: Mass) and `value` (Ex: 3000). The value of a RocketProperty must be a number. There is a hasMany relationship from RocketNode to RocketProperty with RocketProperty having the foriegn key  `nodeId`. 
 
+### Challenges
+Due to the fact that the user can sent any arbbitary path to any depth (/a/b/c/d/e/f), this framework could end up inserting a node without a parent. Depending on the final use case for this project this can be reolved by either...
+- Throwing an error when a user tries to create a node without a parent
+- Create all intermediate nodes from the request when the parent does not exist.
+
+Another issue with this solution is as the tree grows larger the path of each node will continue to grow O(N) in worst case. At some point, you are going to reach the maximum number of characters you can insert into the path column.
+
 #### Get Rocket Info
 
 To Reconstruct the tree from a given path using the following steps.
@@ -133,3 +140,10 @@ Inserting into the tree is very simple. The request url is used to create a new 
       "Height": 45
     }
 
+## Production Ready 🤔
+
+I don't think so. Besides trhe two issues I discussed in the BE section. Hereare some other action items
+- Add Dockerfile to build API/FE into two seperate docker images to deploy to ECS
+- Add media query to handle different screen sizes.
+- SQL table indexing for faster Path based lookup
+- Add more input validation for more detailed error messages 
