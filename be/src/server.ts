@@ -49,7 +49,6 @@ app.post('*', async (req, res, next) => {
 
     const json = await rocketNodeService.getJSONFromPath(req.url);
     res.send(JSON.stringify(json));
-    // res.send('bbtuh');
   }
   catch(e) {
     console.error(e);

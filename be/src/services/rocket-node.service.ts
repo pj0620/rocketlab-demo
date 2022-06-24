@@ -17,7 +17,6 @@ export class RocketNodeService {
   } 
 
   public async getJSONFromPath(path: string): Promise<object|null> {
-    console.log('path: ', path);
     const childrenNodes = await RocketNode.findAll({
       where: { path: { [Op.like]: `${path}%` } },
       include: [ { model: RocketProperty } ]
