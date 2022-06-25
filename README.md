@@ -2,6 +2,8 @@
 
 This is a demo application for managing a rocket as object of properties.
 
+![screenshot](./images/page.png)
+
 ```json
 {
   "Rocket": {
