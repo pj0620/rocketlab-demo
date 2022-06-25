@@ -10,10 +10,12 @@ function RocketTree(props: {rocket: RocketNodeI}) {
 
   const [rocket, setRocket] = useState({} as RocketNodeI);
 
-  useEffect( () => {
-    setRocket(props.rocket);
-    console.log('rocket: ', rocket);
-  }, [props.rocket])
+  // useEffect( () => {
+  //   setRocket(props.rocket);
+  //   console.log('rocket: ', rocket);
+  // }, [c])
+
+  useEffect(() => { setRocket(props.rocket) }, [props.rocket]);
 
   return (  
     <TreeView

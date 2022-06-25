@@ -1,14 +1,19 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import Logo from '../../images/logo.svg';
+import { NewNodeRequest } from '../../types';
 
-const defaultValues = {
+const defaultValues:NewNodeRequest = {
   path: '/Rocket',
-  value: 0.0
+  value: '0.0'
 };
 
-function RocketNodeForm() {
+interface RocketNodeFormProps {
+  newNodeHandler: (newNodeReq: NewNodeRequest) => void
+}
+
+function RocketNodeForm(props: RocketNodeFormProps) {
   const [formValues, setFormValues] = useState(defaultValues);
+  const [open, setOpen] = useState(false);
 
   const handleInputChange = (e:any) => {
     const { name, value } = e.target;
@@ -20,10 +25,24 @@ function RocketNodeForm() {
 
   const handleSubmit = (event:any) => {
     event.preventDefault();
-    console.log(formValues);
+    setOpen(true);
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    props.newNodeHandler(formValues);
+    setOpen(false);
+  }
+
   return (  
+    <div>
     <Box
       component="form"
       sx={{
@@ -63,6 +82,31 @@ function RocketNodeForm() {
         </Button>
       </div>
     </Box>
+
+    <Dialog
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+    >
+    <DialogTitle id="alert-dialog-title">
+      {"Confirmation"}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        Are you sure you want to create this node? <br/><br/>
+        <span>Path: {formValues.path}</span> <br/>
+        <span>Value: {formValues.value}</span>
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleClose}>Cancel</Button>
+      <Button onClick={handleOpen} autoFocus>
+        Confirm
+      </Button>
+    </DialogActions>
+    </Dialog>
+    </div>
   );
 }
 

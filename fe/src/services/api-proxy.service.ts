@@ -38,7 +38,7 @@ export class APIProxyService {
   }
   
   public async setFromPath(path:string, value: RocketNodeI|number): Promise<RocketNodeI|number> {
-    _.set(rocket, path.replace(/\//g, "."), value);
-    return _.get(rocket, path.replace(/\//g, "."));
+    _.set(rocket, path.substring(1).replace(/\//g, "."), value);
+    return _.get(rocket, path.substring(1).replace(/\//g, "."));
   }
 }
